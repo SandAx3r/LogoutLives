@@ -1,0 +1,6 @@
+name: LogoutLives
+main: lives.logout.LogoutLives_MAIN
+version: 0.9.3 (JAVA 16)
+api-version: 1.17
+load: POSTWORLD
+author: SandAx3r
