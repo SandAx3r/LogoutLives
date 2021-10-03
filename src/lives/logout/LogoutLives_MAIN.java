@@ -8,6 +8,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import lives.logout.extras.SaveFilesLL;
+import lives.logout.extras.TickChecker;
 import lives.logout.listeners.EntityKill;
 import lives.logout.listeners.PlayerJoinServer;
 import lives.logout.listeners.PlayerQuitServer;
@@ -35,6 +36,8 @@ public class LogoutLives_MAIN extends JavaPlugin {
 		
 		// Create save file for offlinePlayer
 		SaveFilesLL.readLogoutVillagers("plugins/LogoutLives/offlinePlayers.data");
+		
+		TickChecker.scheduleTimer(this, this.getServer().getWorld("world"));
 
 		// Finish
 		System.out.println("[LogoutLives] Initialized !");

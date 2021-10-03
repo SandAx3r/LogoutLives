@@ -5,8 +5,8 @@ import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Villager;
 
 public class LogoutVillager implements Serializable {
 
@@ -71,16 +71,15 @@ public class LogoutVillager implements Serializable {
 		return "LogoutVillager [playerName=" + playerName + ", dead=" + dead + "]";
 	}
 
-	public Villager create(Location loc) {
+	public Entity create(Location loc) {
 		/**
 		 * 
 		 * VILLAGER CREATION
 		 * 
 		 **/
-		Villager villager = (Villager) Bukkit.getWorld("world").spawnEntity(loc, EntityType.VILLAGER);
+		Entity villager = (Entity) Bukkit.getWorld("world").spawnEntity(loc, EntityType.VILLAGER);
 		villager.setCustomName(this.playerName);
 		villager.setCustomNameVisible(true);
-		villager.setHealth(20);
 		villager.setPersistent(true);
 
 		this.villagerUUID = villager.getUniqueId();

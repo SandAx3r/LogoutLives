@@ -36,10 +36,8 @@ public class EntityKill implements Listener {
 				ent.getWorld().strikeLightningEffect(ent.getLocation()); // NO DAMAGE
 
 				// SOUND + TITLE
-				for (Player p : logoutL.getServer().getOnlinePlayers()) {
-					if (ent.getWorld() != p.getWorld()) {
-						p.playSound(p.getLocation(), Sound.ENTITY_LIGHTNING_BOLT_THUNDER, 5, 5);
-					}
+				logoutL.getServer().broadcastMessage(ChatColor.GOLD + lv.getPlayerName() + ChatColor.WHITE + "died while " + ChatColor.LIGHT_PURPLE + "offline");
+				for (Player p : logoutL.getServer().getOnlinePlayers()) {	
 					p.playSound(p.getLocation(), Sound.ENTITY_GHAST_HURT, 1, 1);
 					p.sendTitle(ChatColor.LIGHT_PURPLE + "F (offline)", lv.getPlayerName(), 10, 70, 20); // Los números
 																											// son los
