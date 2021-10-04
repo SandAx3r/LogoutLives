@@ -28,11 +28,12 @@ public class PlayerJoinServer implements Listener{
 				v = (Entity) logoutL.getServer().getEntity(lv.getVillagerUUID());
 				
 				logoutL.getServer().getEntity(lv.getVillagerUUID());
-				Location loc = new Location(p.getWorld(), lv.getVillagerX(), lv.getVillagerY(), lv.getVillagerZ());
+				Location loc = new Location(logoutL.getServer().getWorld(lv.getWorld()), lv.getVillagerX(), lv.getVillagerY(), lv.getVillagerZ());
+				System.out.println(logoutL.getServer().getWorld(lv.getWorld()));
 				if (lv.isDead()) {
 					p.teleport(loc);
 					System.out.println("[LogoutLives] " + p.getDisplayName() + " died offline, now online");
-					//p.setHealth(0);
+					p.setHealth(0);
 					LogoutLives_MAIN.villagersL.remove(lv);
 					return;
 				}
