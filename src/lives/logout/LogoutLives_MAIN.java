@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -18,11 +19,19 @@ public class LogoutLives_MAIN extends JavaPlugin {
 	public static List<LogoutVillager> villagersL = new ArrayList<LogoutVillager>();
 	public static File villagers_f;
 	public static LogoutLives_MAIN logoutL;
-
+	public FileConfiguration config;
+	
 	// Fired when plugin is first enabled
 	@Override
 	public void onEnable() {
 		logoutL = this;
+		
+		// Configurations
+		this.saveDefaultConfig();
+		config = this.getConfig();
+		createConfig(config);
+		config.options().copyDefaults(true);
+		saveConfig();
 		
 		// Implement listeners
 		PluginManager pm = getServer().getPluginManager();
@@ -60,6 +69,15 @@ public class LogoutLives_MAIN extends JavaPlugin {
 				System.out.println("[LogoutLives] Directory not created");
 			}
 		}
+	}
+	
+	public void createConfig(FileConfiguration config) {
+		
+		config.addDefault("enableTitle", true);
+		config.addDefault("mainTitle", "F (offline)");
+		config.addDefault("lightningDamage", "NO DAMAGE");
+		config.addDefault("lightning", true);
+		config.addDefault("sound", true);
 	}
 	
 	public static LogoutLives_MAIN get() {

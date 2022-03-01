@@ -14,7 +14,7 @@ import lives.logout.LogoutVillager;
 public class EntityKill implements Listener {
 
 	LogoutLives_MAIN logoutL = LogoutLives_MAIN.get();
-	
+
 	// Entity death
 	@EventHandler
 	public void onEntityDeath(EntityDeathEvent e) {
@@ -31,17 +31,32 @@ public class EntityKill implements Listener {
 				lv.setDead(true);
 				lv.setVillagerLocation(ent.getLocation());
 
-				// THUNDERSTRIKE
-				// w.strikeLightning(death.getLocation()); // DAMAGE
-				ent.getWorld().strikeLightningEffect(ent.getLocation()); // NO DAMAGE
+				// THUNDERSTRIke
+				if (logoutL.getConfig().getBoolean("lightning")) {
+					if (logoutL.getConfig().getString("lightningDamage").equals("DAMAGE")) {
+						ent.getWorld().strikeLightning(ent.getLocation()); // DAMAGE
+					} else {
+						ent.getWorld().strikeLightningEffect(ent.getLocation()); // NO DAMAGE
+					}
+				}
 
-				// SOUND + TITLE
-				logoutL.getServer().broadcastMessage(ChatColor.GOLD + lv.getPlayerName() + ChatColor.WHITE + "died while " + ChatColor.LIGHT_PURPLE + "offline");
-				for (Player p : logoutL.getServer().getOnlinePlayers()) {	
-					p.playSound(p.getLocation(), Sound.ENTITY_GHAST_HURT, 1, 1);
-					p.sendTitle(ChatColor.LIGHT_PURPLE + "F (offline)", lv.getPlayerName(), 10, 70, 20); // Los números
-																											// son los
-																											// estandar
+				// MESSAGE + SOUND + TITLE
+				logoutL.getServer().broadcastMessage(ChatColor.GOLD + lv.getPlayerName() + ChatColor.WHITE
+						+ " died while " + ChatColor.LIGHT_PURPLE + "offline");
+				
+				if (logoutL.getConfig().getBoolean("enableTitle")) {
+					for (Player p : logoutL.getServer().getOnlinePlayers()) {
+						if (logoutL.getConfig().getBoolean("sound")) {
+							p.playSound(p.getLocation(), Sound.ENTITY_GHAST_HURT, 1, 1);
+						}
+						String title = logoutL.getConfig().getString("mainTitle");
+						p.sendTitle(ChatColor.LIGHT_PURPLE + title, lv.getPlayerName(), 10, 70, 20); // Los
+																												// números
+																												// son
+																												// los
+																												// estandar
+
+					}
 				}
 			}
 		}
